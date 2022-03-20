@@ -6,8 +6,23 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="1000">
+        motion:duration="300">
        <KeyFrameSet>
+           <KeyAttribute
+               motion:motionTarget="@+id/bottomTitleTextView"
+               motion:framePosition="10"
+               android:alpha="0" />
+           <KeyAttribute
+               motion:motionTarget="@+id/bottomPlayerControlButton"
+               motion:framePosition="10"
+               android:alpha="0" />
+           <KeyPosition
+               motion:motionTarget="@+id/playerView"
+               motion:framePosition="1"
+               motion:keyPositionType="deltaRelative"
+               motion:percentWidth="1"
+               motion:curveFit="linear"
+               motion:percentX="1" />
        </KeyFrameSet>
         <OnSwipe
             motion:touchAnchorId="@+id/mainContainerLayout"

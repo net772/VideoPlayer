@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.videoapp.R
 import com.example.videoapp.model.VideoModel
 
-class VideoAdapter: ListAdapter<VideoModel, VideoAdapter.ViewHolder>(diffUtil) {
+class VideoAdapter(val callback: (String, String) -> Unit): ListAdapter<VideoModel, VideoAdapter.ViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false))
@@ -35,6 +35,10 @@ class VideoAdapter: ListAdapter<VideoModel, VideoAdapter.ViewHolder>(diffUtil) {
             Glide.with(thumbnailImageView.context)
                 .load(item.thumb)
                 .into(thumbnailImageView)
+
+            view.setOnClickListener {
+                callback(item.sources, item.title)
+            }
         }
     }
 

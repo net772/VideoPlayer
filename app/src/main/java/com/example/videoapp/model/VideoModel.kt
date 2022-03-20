@@ -1,6 +1,7 @@
 package com.example.videoapp.model
 
-data class  VideoModel (
+
+data class VideoModel(
     val title: String,
     val sources: String,
     val subtitle: String,

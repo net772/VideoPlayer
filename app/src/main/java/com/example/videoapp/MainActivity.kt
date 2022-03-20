@@ -14,6 +14,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var videoAdapter: VideoAdapter
@@ -27,7 +28,11 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
 
-        videoAdapter = VideoAdapter()
+        videoAdapter = VideoAdapter() { url, title ->
+            supportFragmentManager.fragments.find { it is PlayerFragment }?.let {
+                (it as PlayerFragment).play(url, title)
+            }
+        }
 
         findViewById<RecyclerView>(R.id.mainRecyclerView).apply {
             adapter = videoAdapter
@@ -54,14 +59,14 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         response.body()?.let { videoDto ->
-                            videoAdapter.submitList(videoDto.videos)
                             Log.d("동현","success : $videoDto}")
+                            videoAdapter.submitList(videoDto.videos)
                         }
                     }
 
                     override fun onFailure(call: Call<VideoDto>, t: Throwable) {
+                        Log.d("동현","fail : $call")
                         // 예외처리
-                        Log.d("동현","fail")
                     }
                 })
         }
