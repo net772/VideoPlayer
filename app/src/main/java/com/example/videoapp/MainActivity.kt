@@ -54,18 +54,15 @@ class MainActivity : AppCompatActivity() {
                 .enqueue(object : Callback<VideoDto> {
                     override fun onResponse(call: Call<VideoDto>, response: Response<VideoDto>) {
                         if (response.isSuccessful.not()) {
-                            Log.d("동현","response fail")
                             return
                         }
 
                         response.body()?.let { videoDto ->
-                            Log.d("동현","success : $videoDto}")
                             videoAdapter.submitList(videoDto.videos)
                         }
                     }
 
                     override fun onFailure(call: Call<VideoDto>, t: Throwable) {
-                        Log.d("동현","fail : $call")
                         // 예외처리
                     }
                 })
